@@ -20,7 +20,7 @@ import com.facebook.react.bridge.WritableMap;
  * Created by poberwong on 16/6/30.
  */
 public class IntentLauncherModule extends ReactContextBaseJavaModule implements ActivityEventListener {
-    private static final int REQUEST_CODE = 12;
+    private static final int REQUEST_CODE = 100;
     private static final String ATTR_ACTION = "action";
     private static final String ATTR_TYPE = "type";
     private static final String ATTR_CATEGORY = "category";
