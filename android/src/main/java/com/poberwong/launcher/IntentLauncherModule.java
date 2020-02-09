@@ -53,10 +53,6 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
     public final String EXTRA_RESULT_ERROR_CLASS = "error_class";
     public final String EXTRA_RESULT_ERROR_MESSAGE = "error_message";
 
-    String base;
-    String regex = ",?(\\\\s)*([A-Za-z]+|[0-9\\\\.]+)=([^=,\\\\]*),?(\\\\s)*";
-    Pattern p;
-
     private static final String FIO = "CN";
     private static final String YUR_TIN = "1.2.860.3.16.1.1";
     private static final String FIZ_TIN = "UID";
