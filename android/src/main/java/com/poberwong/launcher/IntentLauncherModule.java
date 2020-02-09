@@ -94,10 +94,10 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
 
         intent.setClassName(E_IMZO_APP, E_IMZO_ACTIVITY);
         if(params.hasKey(EXTRA_PARAM_API_KEY)){
-            intent.putExtra(EXTRA_PARAM_API_KEY,params.getString(EXTRA_PARAM_API_KEY))
+            intent.putExtra(EXTRA_PARAM_API_KEY,params.getString(EXTRA_PARAM_API_KEY));
         }
         if(params.hasKey(EXTRA_PARAM_SERIAL_NUMBER)){
-            intent.putExtra(EXTRA_PARAM_SERIAL_NUMBER,params.getString(EXTRA_PARAM_SERIAL_NUMBER))
+            intent.putExtra(EXTRA_PARAM_SERIAL_NUMBER,params.getString(EXTRA_PARAM_SERIAL_NUMBER));
         }
         if(params.hasKey(EXTRA_PARAM_MESSAGE)){
             intent.putExtra(EXTRA_PARAM_API_KEY,params.getString(EXTRA_PARAM_MESSAGE).getBytes());
