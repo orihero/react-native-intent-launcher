@@ -79,8 +79,7 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
     }
 
     /**
-     * 选用方案
-     * intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+     * 选用方案 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
      * getReactApplicationContext().startActivity(intent);
      */
     @ReactMethod
@@ -89,17 +88,17 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
         Intent intent = new Intent();
 
         intent.setClassName(E_IMZO_APP, E_IMZO_ACTIVITY);
-        if(params.hasKey(EXTRA_PARAM_API_KEY)){
-            intent.putExtra(EXTRA_PARAM_API_KEY,params.getString(EXTRA_PARAM_API_KEY));
+        if (params.hasKey(EXTRA_PARAM_API_KEY)) {
+            intent.putExtra(EXTRA_PARAM_API_KEY, params.getString(EXTRA_PARAM_API_KEY));
         }
-        if(params.hasKey(EXTRA_PARAM_SERIAL_NUMBER)){
-            intent.putExtra(EXTRA_PARAM_SERIAL_NUMBER,params.getString(EXTRA_PARAM_SERIAL_NUMBER));
+        if (params.hasKey(EXTRA_PARAM_SERIAL_NUMBER)) {
+            intent.putExtra(EXTRA_PARAM_SERIAL_NUMBER, params.getString(EXTRA_PARAM_SERIAL_NUMBER));
         }
-        if(params.hasKey(EXTRA_PARAM_MESSAGE)){
-            intent.putExtra(EXTRA_PARAM_API_KEY,params.getString(EXTRA_PARAM_MESSAGE).getBytes());
+        if (params.hasKey(EXTRA_PARAM_MESSAGE)) {
+            intent.putExtra(EXTRA_PARAM_MESSAGE, params.getString(EXTRA_PARAM_MESSAGE).getBytes());
         }
-        
-        getReactApplicationContext().startActivityForResult(intent, REQUEST_CODE, null); 
+
+        getReactApplicationContext().startActivityForResult(intent, REQUEST_CODE, null);
     }
 
     @ReactMethod
