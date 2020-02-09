@@ -32,6 +32,45 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
     Promise promise;
     ReactApplicationContext reactContext;
 
+    final String E_IMZO_APP = "uz.yt.eimzo";
+    final String E_IMZO_ACTIVITY = "uz.yt.eimzo.activity.MainActivity";
+
+    final int RESULT_ERROR = 9;
+    final int RESULT_ACCESS_DENIED = 10;
+
+    public final String EXTRA_PARAM_ATTACH_TST = "tst";
+    public final String APP_KEY = "86E2F10BA6CD237ADA76579102E1FD147561C390055B062FE5AC49957B1D1A54A266EF04A0E3C9AF6DFD65104E78B08524FF3FA769FDAB47C49DFEC1021A77D4";
+    public final String EXTRA_PARAM_ATTACH_PKCS7 = "attach_pkcs7";
+    public final String EXTRA_PARAM_ATTACH_SERIAL_NUMBER = "attach_serial_number";
+    public final String EXTRA_PARAM_SERIAL_NUMBER = "serial_number";
+    public final String EXTRA_PARAM_APPEND_PKCS7 = "append_pkcs7";
+    public final String EXTRA_PARAM_MESSAGE = "message";
+    public final String EXTRA_PARAM_API_KEY = "api_key";
+    public final String EXTRA_RESULT_PKCS7 = "pkcs7";
+    public final String EXTRA_RESULT_SERIAL_NUMBER = "serial_number";
+    public final String EXTRA_RESULT_SUBJECT_NAME = "subject_name";
+    public final String EXTRA_RESULT_SIGNATURE = "signature";
+    public final String EXTRA_RESULT_ERROR_CLASS = "error_class";
+    public final String EXTRA_RESULT_ERROR_MESSAGE = "error_message";
+
+    String base;
+    String regex = ",?(\\\\s)*([A-Za-z]+|[0-9\\\\.]+)=([^=,\\\\]*),?(\\\\s)*";
+    Pattern p;
+
+    private static final String FIO = "CN";
+    private static final String YUR_TIN = "1.2.860.3.16.1.1";
+    private static final String FIZ_TIN = "UID";
+    private static final String FORENAME = "Name";
+    private static final String SURNAME = "SURNAME";
+    private static final String AREA = "L";
+    private static final String REGION = "ST";
+    private static final String COUNTRY = "C";
+    private static final String PINFL = "1.2.860.3.16.1.2";
+    private static final String EMAIL = "E";
+    private static final String JOBTITLE = "T";
+    private static final String ORGANIZATION = "O";
+    private static final String DEPARTMENT = "OU";
+
     public IntentLauncherModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
@@ -53,40 +92,18 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
         this.promise = promise;
         Intent intent = new Intent();
 
-        if (params.hasKey(ATTR_CLASS_NAME)) {
-            ComponentName cn;
-            if (params.hasKey(ATTR_PACKAGE_NAME)) {
-                cn = new ComponentName(params.getString(ATTR_PACKAGE_NAME), params.getString(ATTR_CLASS_NAME));
-            } else {
-                cn = new ComponentName(getReactApplicationContext(), params.getString(ATTR_CLASS_NAME));
-            }
-            intent.setComponent(cn);
+        intent.setClassName(E_IMZO_APP, E_IMZO_ACTIVITY);
+        if(params.hasKey(EXTRA_PARAM_API_KEY)){
+            intent.putExtra(EXTRA_PARAM_API_KEY,params.getString(EXTRA_PARAM_API_KEY))
         }
-        if (params.hasKey(ATTR_ACTION)) {
-            intent.setAction(params.getString(ATTR_ACTION));
+        if(params.hasKey(EXTRA_PARAM_SERIAL_NUMBER)){
+            intent.putExtra(EXTRA_PARAM_SERIAL_NUMBER,params.getString(EXTRA_PARAM_SERIAL_NUMBER))
         }
-        // setting data resets type; and setting type resets data; if you have both, you need to set them at the same time
-        // https://developer.android.com/guide/components/intents-filters.html#Types (see 'Data' section)
-        if (params.hasKey(ATTR_DATA) && params.hasKey(ATTR_TYPE)) {
-            intent.setDataAndType(Uri.parse(params.getString(ATTR_DATA)), params.getString(ATTR_TYPE));
-        } else {
-            if (params.hasKey(ATTR_DATA)) {
-                intent.setData(Uri.parse(params.getString(ATTR_DATA)));
-            }
-            if (params.hasKey(ATTR_TYPE)) {
-                intent.setType(params.getString(ATTR_TYPE));
-            }
+        if(params.hasKey(EXTRA_PARAM_MESSAGE)){
+            intent.putExtra(EXTRA_PARAM_API_KEY,params.getString(EXTRA_PARAM_MESSAGE).getBytes());
         }
-        if (params.hasKey(TAG_EXTRA)) {
-            intent.putExtras(Arguments.toBundle(params.getMap(TAG_EXTRA)));
-        }
-        if (params.hasKey(ATTR_FLAGS)) {
-            intent.addFlags(params.getInt(ATTR_FLAGS));
-        }
-        if (params.hasKey(ATTR_CATEGORY)) {
-            intent.addCategory(params.getString(ATTR_CATEGORY));
-        }
-        getReactApplicationContext().startActivityForResult(intent, REQUEST_CODE, null); // 暂时使用当前应用的任务栈
+        
+        getReactApplicationContext().startActivityForResult(intent, REQUEST_CODE, null); 
     }
 
     @ReactMethod
