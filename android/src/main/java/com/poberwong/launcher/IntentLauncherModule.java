@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.Arguments;
@@ -133,25 +135,16 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
     }
 
     @Override
-    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
+    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
         if (requestCode != REQUEST_CODE) {
             return;
         }
         WritableMap params = Arguments.createMap();
-        if (intent != null) {
+        if (data != null) {
             params.putInt("resultCode", resultCode);
-
-            Uri data = intent.getData();
-            if (data != null) {
-                params.putString("data", data.toString());
-            }
-
-            Bundle extras = intent.getExtras();
-            if (extras != null) {
-                params.putMap("extra", Arguments.fromBundle(extras));
-            }
+            params.putString(EXTRA_RESULT_PKCS7, Base64.encodeToString(data.getByteArrayExtra(EXTRA_RESULT_PKCS7), Base64.NO_WRAP)) ;
         }
-
+//
         this.promise.resolve(params);
     }
 }
