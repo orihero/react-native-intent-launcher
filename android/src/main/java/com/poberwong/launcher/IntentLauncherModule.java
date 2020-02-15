@@ -99,6 +99,9 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
         if (params.hasKey(EXTRA_PARAM_MESSAGE)) {
             intent.putExtra(EXTRA_PARAM_MESSAGE, params.getString(EXTRA_PARAM_MESSAGE).getBytes());
         }
+        if (params.hasKey(EXTRA_PARAM_APPEND_PKCS7)) {
+            intent.putExtra(EXTRA_PARAM_APPEND_PKCS7, params.getString(EXTRA_PARAM_APPEND_PKCS7).getBytes());
+        }
 
         getReactApplicationContext().startActivityForResult(intent, REQUEST_CODE, null);
     }
