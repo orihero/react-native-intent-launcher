@@ -146,6 +146,7 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
         if (data != null) {
             params.putInt("resultCode", resultCode);
             params.putString(EXTRA_RESULT_PKCS7, Base64.encodeToString(data.getByteArrayExtra(EXTRA_RESULT_PKCS7), Base64.NO_WRAP)) ;
+            params.putString(EXTRA_RESULT_SIGNATURE,data.getCharSequenceExtra(EXTRA_RESULT_SERIAL_NUMBER));
         }
 //
         this.promise.resolve(params);
