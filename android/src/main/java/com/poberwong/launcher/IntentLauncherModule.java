@@ -159,6 +159,20 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
     public void onNewIntent(Intent intent) {
     }
 
+     public static String encodeHex(byte[] bytes) {
+        StringBuilder hexString = new StringBuilder();
+
+        for (byte aByte : bytes) {
+            String hex = Integer.toHexString(0xFF & aByte);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+
+        return hexString.toString();
+    }
+
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
         if (requestCode != REQUEST_CODE) {
@@ -168,7 +182,12 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
         if (data != null) {
             params.putInt("resultCode", resultCode);
             params.putString(EXTRA_RESULT_PKCS7, Base64.encodeToString(data.getByteArrayExtra(EXTRA_RESULT_PKCS7), Base64.NO_WRAP)) ;
-            params.putString(EXTRA_RESULT_SIGNATURE,data.getCharSequenceExtra(EXTRA_RESULT_SERIAL_NUMBER));
+            try{
+                params.putString(EXTRA_RESULT_SIGNATURE,encodeHex(data.getByteArrayExtra(EXTRA_RESULT_SIGNATURE)));
+            }
+            catch(Exception e){
+                this.promise.reject(e);
+            }
         }
 //
         this.promise.resolve(params);
