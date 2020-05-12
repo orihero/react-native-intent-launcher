@@ -117,10 +117,10 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
             intent.putExtra(EXTRA_PARAM_API_KEY, params.getString(EXTRA_PARAM_API_KEY));
         }
         if (params.hasKey(EXTRA_PARAM_SERIAL_NUMBER)) {
-            intent.putExtra(EXTRA_PARAM_SERIAL_NUMBER, params.getString(EXTRA_PARAM_SERIAL_NUMBER));
+            intent.putExtra(EXTRA_PARAM_ATTACH_SERIAL_NUMBER, params.getString(EXTRA_PARAM_SERIAL_NUMBER));
         }
-        if (params.hasKey(EXTRA_PARAM_APPEND_PKCS7)) {
-            intent.putExtra(EXTRA_PARAM_APPEND_PKCS7, params.getString(EXTRA_PARAM_APPEND_PKCS7).getBytes());
+        if (params.hasKey(EXTRA_PARAM_ATTACH_PKCS7)) {
+            intent.putExtra(EXTRA_PARAM_ATTACH_PKCS7, params.getString(EXTRA_PARAM_ATTACH_PKCS7).getBytes());
         }
         if (params.hasKey(EXTRA_PARAM_ATTACH_TST)) {
             intent.putExtra(EXTRA_PARAM_ATTACH_TST, params.getString(EXTRA_PARAM_ATTACH_TST).getBytes());
