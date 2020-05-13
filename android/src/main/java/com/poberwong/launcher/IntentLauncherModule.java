@@ -119,11 +119,31 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
         if (params.hasKey(EXTRA_PARAM_SERIAL_NUMBER)) {
             intent.putExtra(EXTRA_PARAM_ATTACH_SERIAL_NUMBER, params.getString(EXTRA_PARAM_SERIAL_NUMBER));
         }
+        byte[] pkcs7 = Base64.decode(params.getString(EXTRA_PARAM_ATTACH_PKCS7),Base64.NO_WRAP);
         if (params.hasKey(EXTRA_PARAM_ATTACH_PKCS7)) {
-            intent.putExtra(EXTRA_PARAM_ATTACH_PKCS7, params.getString(EXTRA_PARAM_ATTACH_PKCS7).getBytes());
+            intent.putExtra(EXTRA_PARAM_ATTACH_PKCS7,pkcs7 );
         }
         if (params.hasKey(EXTRA_PARAM_ATTACH_TST)) {
             intent.putExtra(EXTRA_PARAM_ATTACH_TST, params.getString(EXTRA_PARAM_ATTACH_TST).getBytes());
+        }
+        getReactApplicationContext().startActivityForResult(intent, REQUEST_CODE, null);
+    }
+
+     @ReactMethod
+    public void append(ReadableMap params, final Promise promise) {
+        this.promise = promise;
+        Intent intent = new Intent();
+
+        intent.setClassName(E_IMZO_APP, E_IMZO_ACTIVITY);
+        if (params.hasKey(EXTRA_PARAM_API_KEY)) {
+            intent.putExtra(EXTRA_PARAM_API_KEY, params.getString(EXTRA_PARAM_API_KEY));
+        }
+        if (params.hasKey(EXTRA_PARAM_SERIAL_NUMBER)) {
+            intent.putExtra(EXTRA_PARAM_SERIAL_NUMBER, params.getString(EXTRA_PARAM_SERIAL_NUMBER));
+        }
+        byte[] pkcs7 = Base64.decode(params.getString(EXTRA_PARAM_APPEND_PKCS7),Base64.NO_WRAP);
+        if (params.hasKey(EXTRA_PARAM_APPEND_PKCS7)) {
+            intent.putExtra(EXTRA_PARAM_APPEND_PKCS7,pkcs7 );
         }
         getReactApplicationContext().startActivityForResult(intent, REQUEST_CODE, null);
     }
