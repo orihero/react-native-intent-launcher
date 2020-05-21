@@ -17,7 +17,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
-import uz.sicnt.horcrux.Horcrux
+import uz.sicnt.horcrux.Horcrux;
 
 /**
  * Created by poberwong on 16/6/30.
@@ -112,7 +112,7 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
 
     @ReactMethod
     public void createSign(ReadableMap params, final Promise promise) {
-        this.horcrux.createPKCS7(getReactApplicationContext(),"MESSAGE")
+        this.horcrux.createPKCS7(getReactApplicationContext(),"MESSAGE");
     }
 
     @ReactMethod
