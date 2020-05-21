@@ -17,6 +17,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
+import uz.sicnt.horcrux.Horcrux
 
 /**
  * Created by poberwong on 16/6/30.
@@ -69,10 +70,13 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
     private static final String ORGANIZATION = "O";
     private static final String DEPARTMENT = "OU";
 
+    Horcrux horcrux;
+
     public IntentLauncherModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
         reactContext.addActivityEventListener(this);
+        this.horcrux = Horcrux(reactContext,APP_KEY);
     }
 
     @Override
@@ -106,6 +110,10 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
         getReactApplicationContext().startActivityForResult(intent, REQUEST_CODE, null);
     }
 
+    @ReactMethod
+    public void createSign(ReadableMap params, final Promise promise) {
+        this.horcrux.createPKCS7(getReactApplicationContext(),"MESSAGE")
+    }
 
     @ReactMethod
     public void attachTimestamp(ReadableMap params, final Promise promise) {
