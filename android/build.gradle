@@ -19,7 +19,7 @@ dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:+"
     compile "com.facebook.react:react-native:+"  // From node_modules
-    implementation 'com.github.alimninja:horcrux:latest_version'
+    implementation 'com.github.alimninja:horcrux:v0.0.1-beta.1'
 }
 
 allprojects {
