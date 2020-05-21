@@ -112,7 +112,7 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
 
     @ReactMethod
     public void createSign(ReadableMap params, final Promise promise) {
-        this.horcrux.createPKCS7(getReactApplicationContext(),"MESSAGE");
+        this.horcrux.createPKCS7(this,"MESSAGE");
     }
 
     @ReactMethod
